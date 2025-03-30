@@ -5,13 +5,12 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\WeatherResource\Pages;
 use App\Filament\Resources\WeatherResource\RelationManagers;
 use App\Models\Weather;
-use Filament\Forms;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class WeatherResource extends Resource
 {
@@ -21,29 +20,20 @@ class WeatherResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return $form->schema([
+            TextInput::make('city')->required(),
+            TextInput::make('response_json')->required(),
+            Textarea::make('response_json')->required(),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                //
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return $table->columns([
+            TextColumn::make('city'),
+            TextColumn::make('response_json'),
+            TextColumn::make('created_at')->dateTime(),
+        ]);
     }
 
     public static function getRelations(): array

@@ -9,7 +9,7 @@ class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('weather:fetch')->hourly();
+        $schedule->command('weather:fetch')->daily();
     }
 
     protected function commands(): void
